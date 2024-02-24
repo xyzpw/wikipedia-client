@@ -8,10 +8,12 @@ def searchPage(pageData: str, matchString: str) -> str:
     return text_found
 
 def displayMatches(text: str, textToFind: str, no_highlight=False) -> str:
-    text_found = searchPage(text, textToFind)
-    if text_found == '':
-        raise SystemExit("no matching text found")
-    else:
-        if not no_highlight:
-            text_found = re.sub(rf"(?P<match>{textToFind})", r"\033[31m\g<match>\033[0m", text_found)
-        print(text_found)
+    findInPageList = textToFind.split(' ')
+    for s in findInPageList:
+        text_found = searchPage(text, s)
+        if text_found == '':
+            raise SystemExit("no matching text found")
+        else:
+            if not no_highlight:
+                text_found = re.sub(rf"(?P<match>{s})", r"\033[31m\g<match>\033[0m", text_found)
+            print(text_found)
