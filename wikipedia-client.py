@@ -15,6 +15,7 @@ from src import _contentItemsHandler
 from src import _wikipageBuilder
 from src import _cleantextHandler
 from src import _prettifyPage
+from src.configHandler import *
 
 USER_AGENT = "cloned from xyzpw/wikipedia-client.git"
 
@@ -33,6 +34,7 @@ parser.add_argument("--no_hatnotes", help="removes hatnotes from the displayed t
 parser.add_argument("--no_cites", help="removes cites from the displayed text", action="store_true")
 args = vars(parser.parse_args())
 _arghandler.validateArgs(args)
+args = readConfig(dict(args))
 
 isCleanDisplay = args.get("no_hatnotes") or args.get("no_cites")
 
