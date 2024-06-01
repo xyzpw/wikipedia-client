@@ -3,12 +3,12 @@ import re
 #https://en.wikipedia.org/wiki/Wikipedia:Hatnote#Hatnote_templates
 
 def hatnoteExist(hatnoteName, pageContent) -> bool:
-    if bool(re.search(r"(?:\{\{"+hatnoteName+"(?:.*?)\}\})", pageContent, re.DOTALL)):
+    if bool(re.search(r"(?:\{\{"+hatnoteName+r"(?:.*?)\}\})", pageContent, re.DOTALL)):
         return True
     return False
 
 def hatnoteIsEmpty(hatnoteName, pageContent) -> bool:
-    if bool(re.search(r"(?:\{\{"+hatnoteName+"(?:.*?)\}\})", pageContent, re.DOTALL)):
+    if bool(re.search(r"(?:\{\{"+hatnoteName+r"(?:.*?)\}\})", pageContent, re.DOTALL)):
         return True
     return False
 
@@ -20,7 +20,7 @@ def hatnoteMissing(hatnoteName, pageContent) -> bool:
     return False
 
 def lookupHatnoteContent(hatnoteName, pageContent) -> str:
-    content = re.search(r"(?:(?<=\{\{)"+hatnoteName+")(?:.*?)(?=\}\})", pageContent, re.DOTALL)
+    content = re.search(r"(?:(?<=\{\{)"+hatnoteName+r")(?:.*?)(?=\}\})", pageContent, re.DOTALL)
     if bool(content):
         return content.group(0)
     return None
@@ -95,4 +95,4 @@ def forHatnoteText(pageContent) -> str:
     return f"For {forHatnoteFor}, see {forHatnoteSee}."
 
 def replaceFurtherHatnotes(pageContent) -> str:
-    return re.sub(r"\{\{further\|(?P<info>.*?)\}\}", "Further information: \g<info>", pageContent, flags=(re.DOTALL | re.IGNORECASE))
+    return re.sub(r"\{\{further\|(?P<info>.*?)\}\}", r"Further information: \g<info>", pageContent, flags=(re.DOTALL | re.IGNORECASE))
